@@ -1,3 +1,4 @@
+
 import sympy
 #ax^2 + bx + c
 print("x^2 + x +  c : number of primes")
