@@ -12,7 +12,6 @@ fib_data = pd.read_excel("FibPrimeGaps.xlsx", sheetname = "Gaps")
 
 # Gaps
 
-
 x = fib_data["x"][:-1].values.reshape(-1, 1)
 y1 = fib_data["Fib Prime Differences"].values.reshape(-1, 1)
 y2 = fib_data["log(differences)"].values.reshape(-1, 1)
