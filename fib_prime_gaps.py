@@ -8,7 +8,7 @@ from sklearn.metrics import r2_score
 import matplotlib.pyplot as plt
 import math
 
-fib_data = pd.read_excel("FibPrimeGaps.xlsx", sheetname = "Gaps")
+fib_data = pd.read_csv("FibPrimeGaps.csv")
 
 # Gaps
 
