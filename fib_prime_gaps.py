@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+from decimal import *
 
 from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import PolynomialFeatures 
@@ -8,14 +9,44 @@ from sklearn.metrics import r2_score
 import matplotlib.pyplot as plt
 import math
 
-fib_data = pd.read_csv("FibPrimeGaps.csv")
+fib_data = pd.read_csv("FibonacciPrimes.csv")
+fib_gaps_data = pd.read_csv("FibPrimeGaps.csv")
+
+"""
+y = fib_data["FibPrimes"]
+gaps = []
+
+for fib1, fib2 in zip(y[y.index > 0], y[y.index < y.size - 1]):
+	gaps.append(int(fib1) - int(fib2))
+
+pd_gaps = pd.Series(map(str, gaps))
+
+print len(pd_gaps)
+
+pd_log_gaps = map(str, np.log10(map(Decimal, gaps)))
+
+print len(pd_log_gaps)
+
+pd_log_log_gaps = map(str, np.log10(np.log10(map(Decimal, gaps[1:]))))
+pd_log_log_gaps = np.insert(pd_log_log_gaps, 0, "0")
+
+print len(pd_log_log_gaps)
+
+# print np.array([np.arange(1, 31), pd_gaps, pd_log_gaps, pd_log_log_gaps])
+
+fib_gaps = pd.DataFrame(np.array([np.arange(1, 31), pd_gaps, pd_log_gaps, pd_log_log_gaps]).transpose(), columns = ["x", "Fib Prime Differences", "log(differences)", "log(log(differences))"])
+
+print fib_gaps
+
+fib_gaps.to_csv("FibPrimeGaps.csv")
+"""
 
 # Gaps
 
-x = fib_data["x"][:-1].values.reshape(-1, 1)
-y1 = fib_data["Fib Prime Differences"].values.reshape(-1, 1)
-y2 = fib_data["log(differences)"].values.reshape(-1, 1)
-y3 = fib_data["log(log(differences))"][1:].values.reshape(-1, 1)
+x = fib_gaps_data["x"][:-1].values.reshape(-1, 1)
+y1 = fib_gaps_data["Fib Prime Differences"].values.reshape(-1, 1)
+y2 = fib_gaps_data["log(differences)"].values.reshape(-1, 1)
+y3 = fib_gaps_data["log(log(differences))"][1:].values.reshape(-1, 1)
 
 # Indices of Gaps
 """
