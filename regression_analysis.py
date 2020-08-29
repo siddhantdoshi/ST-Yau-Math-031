@@ -12,6 +12,10 @@ import math
 fib_data = pd.read_csv("FibonacciPrimes.csv")
 fib_gaps_data = pd.read_csv("FibPrimeGaps.csv")
 
+lucas_data = pd.read_csv("LucasPrimes.csv")
+lucas_gaps_data = pd.read_csv("LucasPrimeGaps.csv")
+lucas_gaps_indices_data = pd.read_csv("LucasPrimeIndicesGaps.csv")
+
 """
 y = fib_data["FibPrimes"]
 gaps = []
@@ -43,10 +47,22 @@ fib_gaps.to_csv("FibPrimeGaps.csv")
 
 # Gaps
 
+"""
 x = fib_gaps_data["x"][:-1].values.reshape(-1, 1)
 y1 = fib_gaps_data["Fib Prime Differences"].values.reshape(-1, 1)
 y2 = fib_gaps_data["log(differences)"].values.reshape(-1, 1)
 y3 = fib_gaps_data["log(log(differences))"][1:].values.reshape(-1, 1)
+"""
+"""
+x = lucas_gaps_data["x"].values.reshape(-1, 1)
+y1 = lucas_gaps_data["Lucas Primes"].values.reshape(-1, 1)
+y2 = lucas_gaps_data["log(differences)"]
+y3 = pd.Series(np.log(i) if i > 0 else 0 for i in y2)
+y2 = y2.values.reshape(-1, 1)
+
+lucas_gaps_data["log(log(differences))"] = y3
+lucas_gaps_data.to_csv("LucasPrimeGaps.csv")
+"""
 
 # Indices of Gaps
 """
@@ -82,14 +98,14 @@ print "r2 score poly:", r2_score(y3, pred_poly)
 plt.plot(x, y3, "ro", x, pred_lin, "b", x, pred_poly, "g")
 plt.title("Regression Analysis")
 plt.xlabel("N")
-plt.ylabel("Log(Nth gap)")
-plt.legend(["Log(Nth Gap)", "Best Fit Line", "Best Fit Cubic Polynomial"])
+plt.ylabel("Log(Log(Nth gap))")
+plt.legend(["Log(Log(Nth Gap))", "Best Fit Line", "Best Fit Cubic Polynomial"])
 plt.show()
 
-reshaped_pred_lin = np.array(pred_lin).reshape(len(pred_lin),)
+reshaped_pred_lin = np.array(pred_lin).values.reshape(len(pred_lin),)
 print reshaped_pred_lin
 
-error = reshaped_pred_lin - y3.reshape(len(y3),)
+error = reshaped_pred_lin - y3.values.reshape(len(y3),)
 print error
 print max(error)
 print min(error)
