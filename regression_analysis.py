@@ -45,14 +45,27 @@ print fib_gaps
 fib_gaps.to_csv("FibPrimeGaps.csv")
 """
 
-# Gaps
+# Primes
 
 """
+x = fib_data["x"].values.reshape(-1, 1)
+y1 = fib_data["FibPrimes"].values.reshape(-1, 1)
+y2 = fib_data["log(log(FibPrimes))"].values.reshape(-1, 1)
+"""
+"""
+x = lucas_data["x"].values.reshape(-1, 1)
+y1 = lucas_data["lucas_primes"].values.reshape(-1, 1)
+y2 = lucas_data["log(log(lucas_primes))"].values.reshape(-1, 1)
+"""
+
+# Gaps
+
+# """
 x = fib_gaps_data["x"][:-1].values.reshape(-1, 1)
 y1 = fib_gaps_data["Fib Prime Differences"].values.reshape(-1, 1)
 y2 = fib_gaps_data["log(differences)"].values.reshape(-1, 1)
 y3 = fib_gaps_data["log(log(differences))"][1:].values.reshape(-1, 1)
-"""
+# """
 """
 x = lucas_gaps_data["x"].values.reshape(-1, 1)
 y1 = lucas_gaps_data["Lucas Primes"].values.reshape(-1, 1)
@@ -98,14 +111,14 @@ print "r2 score poly:", r2_score(y3, pred_poly)
 plt.plot(x, y3, "ro", x, pred_lin, "b", x, pred_poly, "g")
 plt.title("Regression Analysis")
 plt.xlabel("N")
-plt.ylabel("Log(Log(Nth gap))")
-plt.legend(["Log(Log(Nth Gap))", "Best Fit Line", "Best Fit Cubic Polynomial"])
+plt.ylabel("Log(Log(Nth Fibonacci Prime))")
+plt.legend(["Log(Log(Nth Fibonacci Prime))", "Best Fit Line", "Best Fit Cubic Polynomial"])
 plt.show()
 
-reshaped_pred_lin = np.array(pred_lin).values.reshape(len(pred_lin),)
+reshaped_pred_lin = np.array(pred_lin).reshape(len(pred_lin),)
 print reshaped_pred_lin
 
-error = reshaped_pred_lin - y3.values.reshape(len(y3),)
+error = reshaped_pred_lin - y3.reshape(len(y3),)
 print error
 print max(error)
 print min(error)
